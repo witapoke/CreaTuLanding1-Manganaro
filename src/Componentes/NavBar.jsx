@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import CartWidget from './CartWidget'
 import '../Estilos/navbar.css'
 import BrandLogo from '../assets/brand-logo.jpg'
+import { Link } from 'react-router-dom'
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -22,7 +23,9 @@ export default function NavBar() {
         width='150px'
         className='brand-logo'
       />
-      <h1 className='brand-title'>Nacho´s Shop</h1>
+      <Link to='/' className='linksito'>
+        <h1 className='brand-title'>Nacho´s Shop</h1>
+      </Link>
       <div className='dropdown'>
         <h3
           ref={selectRef}
@@ -33,10 +36,18 @@ export default function NavBar() {
         </h3>
         {menuOpen ? (
           <ul className='category-list'>
-            <p className='category-item'>All</p>
-            <p className='category-item'>Furniture</p>
-            <p className='category-item'>Fragrances</p>
-            <p className='category-item'>Groceries</p>
+            <Link to='/' className='category-item'>
+              <p>All</p>
+            </Link>
+            <Link to='/products/Furniture' className='category-item'>
+              <p>Furniture</p>
+            </Link>
+            <Link to='/products/Fragrances' className='category-item'>
+              <p>Fragrances</p>
+            </Link>
+            <Link to='/products/Groceries' className='category-item'>
+              <p>Groceries</p>
+            </Link>
           </ul>
         ) : (
           ''

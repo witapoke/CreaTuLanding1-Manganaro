@@ -1,24 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams, Link } from 'react-router-dom'
 import '../Estilos/ItemListContainer.css'
-import { Link } from 'react-router-dom'
 
-export default function ItemListContainer({ message }) {
+export default function FilteredProducts() {
+  const [filteredProducts, setFilteredProducts] = useState([])
+  let params = useParams()
+
   useEffect(() => {
     fetchProducts()
-  }, [])
-
-  const [products, setProducts] = useState([])
+  }, [params.category])
 
   const fetchProducts = () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(
-          fetch('https://dummyjson.com/products')
+          fetch(`https://dummyjson.com/products/category/${params.category}`)
             .then((res) => res.json())
             .then((res) => {
-              console.log(res.products)
-              setProducts(res.products)
+              console.log(res)
+              setFilteredProducts(res.products)
             })
         )
       }, 1500)
@@ -27,7 +29,7 @@ export default function ItemListContainer({ message }) {
 
   return (
     <ul className='itemListContainer'>
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <Link
           className='linksito'
           to={`/product/${product.title}`}

@@ -1,0 +1,51 @@
+.mainProductDetailContainer {
+  display: flex;
+  background-color: gray;
+  width: 100%;
+  justify-content: space-around;
+  padding: 50px;
+  height: 100vh;
+}
+
+.productDetailContainer {
+  background-color: white;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  height: 400px;
+  gap: 10px;
+}
+
+.productDetailImage {
+  height: 150px;
+  margin: 10px;
+  width: 60%;
+  border: 1px solid black;
+  object-fit: contain;
+}
+
+.detailBtn {
+  padding: 10px;
+  margin: 5px;
+}
+
+.product-description {
+  padding: 10px;
+  text-align: center;
+}
+
+.product-price {
+  text-align: center;
+}
+
+.productInfoContainer {
+  background-color: white;
+  height: 250px;
+  list-style: none;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
