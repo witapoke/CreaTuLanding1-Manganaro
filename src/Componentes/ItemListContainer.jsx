@@ -1,48 +1,43 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react'
 import '../Estilos/ItemListContainer.css'
 import { Link } from 'react-router-dom'
+import { ProductsContext } from '../Context/ProductsContext'
+import { ListItem } from './ListItem'
+import { CartComponent } from './CartComponent'
+import { CartContext } from '../Context/CartContext'
 
-export default function ItemListContainer({ message }) {
+const ItemListContainer = () => {
+  const { getFromLocalStorage, cart, cartOn } = useContext(CartContext)
+  const { products, fetchProducts } = useContext(ProductsContext)
+
   useEffect(() => {
     fetchProducts()
+    getFromLocalStorage()
   }, [])
 
-  const [products, setProducts] = useState([])
-
-  const fetchProducts = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(
-          fetch('https://dummyjson.com/products')
-            .then((res) => res.json())
-            .then((res) => {
-              console.log(res.products)
-              setProducts(res.products)
-            })
-        )
-      }, 1500)
-    })
-  }
+  useEffect(() => {
+    console.log('item list container render')
+  })
 
   return (
-    <ul className='itemListContainer'>
-      {products.map((product) => (
-        <Link
-          className='linksito'
-          to={`/product/${product.title}`}
-          key={product.id}
-        >
-          <li className='listItem'>
-            <img src={product.thumbnail} className='productImage' />
-            <h3 className='productTitle'>{product.title}</h3>
-            <div className='productDetails'>
-              <p>${product.price}</p>
-              <button className='addToCartBtn'>➕</button>
-            </div>
-          </li>
-        </Link>
-      ))}
-    </ul>
+    <div>
+      <ul className='itemListContainer'>
+        {products.map((product) => (
+          <ListItem product={product} key={product.id} productsAdd={products} />
+        ))}
+      </ul>
+      <div>
+        {cartOn && (
+          <div className='carrito-costado' style={{ textAlign: 'center' }}>
+            {cart.map((item) => (
+              <CartComponent item={item} key={item.id} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   )
 }
+
+export default ItemListContainer

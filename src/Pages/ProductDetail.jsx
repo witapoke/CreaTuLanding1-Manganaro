@@ -3,12 +3,16 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../Estilos/ProductDetail.css'
 
-export default function ProductDetail() {
+const ProductDetail = () => {
   let params = useParams()
 
   useEffect(() => {
     fetchProducts()
   }, [])
+
+  useEffect(() => {
+    console.log('product detail  render')
+  })
 
   const [product, setProduct] = useState([])
 
@@ -52,3 +56,5 @@ export default function ProductDetail() {
     </div>
   )
 }
+
+export default ProductDetail

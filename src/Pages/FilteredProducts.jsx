@@ -1,35 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import '../Estilos/ItemListContainer.css'
+import { ProductsContext } from '../Context/ProductsContext'
 
 export default function FilteredProducts() {
-  const [filteredProducts, setFilteredProducts] = useState([])
+  const { products, fetchByCategory } = useContext(ProductsContext)
   let params = useParams()
 
   useEffect(() => {
-    fetchProducts()
-  }, [params.category])
+    console.log('filtered products render')
+  })
 
-  const fetchProducts = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(
-          fetch(`https://dummyjson.com/products/category/${params.category}`)
-            .then((res) => res.json())
-            .then((res) => {
-              console.log(res)
-              setFilteredProducts(res.products)
-            })
-        )
-      }, 1500)
-    })
-  }
+  useEffect(() => {
+    fetchByCategory(params.category)
+  }, [params.category])
 
   return (
     <ul className='itemListContainer'>
-      {filteredProducts.map((product) => (
+      {products.map((product) => (
         <Link
           className='linksito'
           to={`/product/${product.title}`}
