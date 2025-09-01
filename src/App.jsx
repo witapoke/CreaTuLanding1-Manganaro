@@ -15,12 +15,12 @@ const App = () => {
     <div className='appContainer'>
       <CartProvider>
         <Navbar />
-        <Routes>
+        {/* <Routes>
           <Route path='/' element={<ItemListContainer />} />
           <Route path='/products/:category' element={<FilteredProducts />} />
           <Route path='/product/:detail' element={<ProductDetail />}></Route>
           <Route path='/cart' element={<Cart />}></Route>
-        </Routes>
+        </Routes> */}
       </CartProvider>
     </div>
   )
